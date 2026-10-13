@@ -31,7 +31,7 @@
         /* Full page background styling matching user image */
         .wedding-bg-image {
             background-image: linear-gradient(180deg, rgba(30, 22, 16, 0.25) 0%, rgba(15, 10, 7, 0.15) 60%, rgba(10, 7, 5, 0.85) 100%),
-                url('./img/HERO.png');
+                url('./img/hero.jpeg');
             background-size: cover;
             background-position: center bottom;
             background-repeat: no-repeat;
@@ -121,25 +121,26 @@
                 height: 16px;
             }
         }
-.eq-bar {
-    display: inline-block;
-    width: 3px;
-    height: 4px;
-    background-color: #f3ddb6;
-    border-radius: 2px;
-}
 
-.eq-bar.playing {
-    animation: bounceBar 0.8s infinite ease-in-out;
-}
+        .eq-bar {
+            display: inline-block;
+            width: 3px;
+            height: 4px;
+            background-color: #f3ddb6;
+            border-radius: 2px;
+        }
 
-.eq-bar:nth-child(2) {
-    animation-delay: 0.2s;
-}
+        .eq-bar.playing {
+            animation: bounceBar 0.8s infinite ease-in-out;
+        }
 
-.eq-bar:nth-child(3) {
-    animation-delay: 0.4s;
-}
+        .eq-bar:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .eq-bar:nth-child(3) {
+            animation-delay: 0.4s;
+        }
 
         /* Scroll Animation Classes */
         .scroll-section {
@@ -152,10 +153,283 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        .intro-open-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            z-index: 100000;
+            width: 200px;
+            height: 200px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+
+            border: 1px solid rgba(245, 230, 207, 0.65);
+            border-radius: 50%;
+
+            background: rgba(112, 89, 68, 0.96);
+            color: #f5ead8;
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .intro-names {
+            font-family: 'Aref Ruqaa', 'Amiri', serif;
+            font-size: 32px;
+            line-height: 1.2;
+            color: #f5ead8;
+        }
+
+        .intro-amp {
+            font-family: 'Amiri', serif;
+            font-size: 20px;
+            color: #e8d9c4;
+        }
+
+        .intro-open-text {
+            font-family: 'Cairo', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-top: 8px;
+            color: #e8d9c4;
+        }
+
+        #introScreen.opened .intro-open-btn {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .timeline {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin: 20px auto;
+            padding: 10px 15px;
+            overflow: hidden;
+        }
+
+        /* الخط الواصل بين الدوائر */
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            bottom: 20px;
+            left: 50%;
+            width: 1px;
+            background: rgba(235, 233, 211, 0.35);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 32px 1fr;
+            align-items: center;
+            gap: 12px;
+            min-height: 85px;
+        }
+
+        /* الوقت */
+        .timeline-time {
+            text-align: right;
+            color: #e5e1d1;
+            opacity: 0;
+            transform: translateX(-15px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        /* الدائرة */
+        .timeline-dot {
+            position: relative;
+            z-index: 1;
+            width: 18px;
+            height: 18px;
+            justify-self: center;
+            border-radius: 50%;
+            background: #e8e7d8;
+            box-shadow: 0 0 0 7px rgba(232, 231, 216, 0.13);
+            opacity: 0;
+            transform: scale(0.4);
+            transition: opacity 0.6s ease, transform 0.6s ease,
+                box-shadow 0.6s ease;
+        }
+
+        /* الكلام */
+        .timeline-text {
+            color: #e5e1d1;
+            text-align: right;
+            opacity: 0;
+            transform: translateX(15px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        /* عند ظهور العنصر مع السكرول */
+        .timeline-item.visible .timeline-time,
+        .timeline-item.visible .timeline-text {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item.visible .timeline-dot {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow:
+                0 0 0 7px rgba(232, 231, 216, 0.15),
+                0 0 22px 8px rgba(232, 231, 216, 0.4);
+        }
+
+        /* حركة بسيطة للضوء */
+        .timeline-item.visible .timeline-dot {
+            animation: dotGlow 1.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes dotGlow {
+            from {
+                box-shadow:
+                    0 0 0 7px rgba(232, 231, 216, 0.12),
+                    0 0 10px 3px rgba(232, 231, 216, 0.2);
+            }
+
+            to {
+                box-shadow:
+                    0 0 0 9px rgba(232, 231, 216, 0.18),
+                    0 0 25px 9px rgba(232, 231, 216, 0.45);
+            }
+        }
+
+        /* شاشة الافتتاح فوق الدعوة */
+        #introScreen {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            z-index: 9999;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        /* البلور لازم يكون موجود في نصفي الشاشة */
+        #introScreen .intro-half {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background: rgba(105, 86, 69, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: transform 1.5s ease-in-out;
+        }
+
+        #introScreen .intro-half.left {
+            left: 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        #introScreen .intro-half.right {
+            right: 0;
+        }
+
+        /* الزرار فوق البلور */
+        #introScreen .intro-open-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 1px solid rgba(245, 230, 207, 0.7);
+            background: rgba(112, 89, 68, 0.96);
+            color: #f5ead8;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+        }
+
+        #introScreen .intro-names {
+            font-family: 'Aref Ruqaa', 'Amiri', serif;
+            font-size: 32px;
+            line-height: 1.2;
+            color: #f5ead8;
+        }
+
+        #introScreen .intro-amp {
+            font-size: 20px;
+            color: #e8d9c4;
+        }
+
+        #introScreen .intro-open-text {
+            font-family: 'Cairo', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-top: 8px;
+            color: #e8d9c4;
+        }
+
+        /* فتح نصفي البلور */
+        #introScreen.opened .intro-half.left {
+            transform: translateX(-100%);
+        }
+
+        #introScreen.opened .intro-half.right {
+            transform: translateX(100%);
+        }
+
+        #introScreen.opened .intro-open-btn {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #introScreen.opened {
+            visibility: hidden;
+            transition: visibility 0s linear 1.5s;
+        }
     </style>
 </head>
 
 <body class="bg-zinc-950 text-amber-50 font-ui min-h-screen flex justify-center items-center p-0 sm:p-4 select-none">
+
+
+    <!-- Intro / Opening Screen -->
+    <div id="introScreen">
+
+        <!-- Left blurred half -->
+        <div class="intro-half left"></div>
+
+        <!-- Right blurred half -->
+        <div class="intro-half right"></div>
+
+        <!-- Center OPEN button -->
+        <button type="button" class="intro-open-btn"
+            onclick="playWeddingMusic(); document.getElementById('introScreen').classList.add('opened')">
+            <span class="intro-names">مُبين</span>
+            <span class="intro-amp">&</span>
+            <span class="intro-names">ثَناء</span>
+            <span class="intro-open-text">OPEN</span>
+        </button>
+
+    </div>
+
 
     <!-- Main Container Wrapper with Scroll Support -->
     <div class="relative w-full max-w-[420px] h-[100vh] sm:h-[880px] sm:rounded-[36px] wedding-bg-image overflow-y-auto overflow-x-hidden shadow-2xl flex flex-col justify-between border border-amber-900/30"
@@ -183,13 +457,6 @@
         <!-- ================= FIRST SCREEN SECTION ================= -->
         <div class="min-h-[100vh] sm:min-h-[880px] flex flex-col justify-between relative z-10 p-4">
 
-            <!-- Top Header Bar -->
-            <div class="pt-4 flex justify-center items-center">
-                <button
-                    class="glass-pill text-amber-100 text-xs px-5 py-1.5 rounded-full font-light tracking-wide hover:bg-white/20 transition-all flex items-center gap-1.5 shadow-sm">
-                    Preview Mode
-                </button>
-            </div>
 
             <!-- Main Content Area -->
             <div class="flex-1 flex flex-col items-center justify-start pt-2 px-6 text-center">
@@ -197,16 +464,9 @@
                 <p class="font-subhead text-amber-100/90 text-lg tracking-widest mb-1 drop-shadow-md">حفل زفاف</p>
 
                 <!-- Calligraphic Names Section -->
-                <div class="my-1 flex flex-col items-center justify-center space-y-[-8px]">
-                    <h1 class="font-calligraphy silver-text text-4xl sm:text-5xl leading-relaxed py-0.5">
-                        مُبَيَّن
-                    </h1>
-                    <h1 class="font-calligraphy silver-text text-4xl sm:text-5xl leading-relaxed py-0.5">
-                        &
-                    </h1>
-                    <h1 class="font-calligraphy silver-text text-4xl sm:text-5xl leading-relaxed py-0.5">
-                        سَناء
-                    </h1>
+                <div class="my-1 flex flex-col items-center justify-center">
+                    <img src="./img/svg-removebg-preview.png" alt="مُبين وثَناء"
+                        class="w-40 sm:w-48 h-auto object-contain" />
                 </div>
 
                 <!-- Date and Time Section Grid -->
@@ -217,34 +477,20 @@
                             <span class="block text-amber-100 font-medium mb-1 drop-shadow">الاثنين</span>
                             <div class="text-xs tracking-wider text-amber-100 space-y-0.5">
                                 <div>2026.11.02</div>
-                          
+
                             </div>
                         </div>
                         <div>
                             <span class="block text-amber-100 font-medium mb-1 drop-shadow">مساءً</span>
                             <div class="text-xs tracking-wider text-amber-100 space-y-0.5">
                                 <div>7:00</div>
-                       
+
                             </div>
                         </div>
                     </div>
                 </div>
-<button
-    id="musicBtn"
-    type="button"
-    onclick="playWeddingMusic()"
-    class="relative z-[9999] cursor-pointer"
->
-    <span id="musicBtnT">Set the Mood ♡</span>
-</button
-                <!-- Interactive Music Button Overlay -->
-                <div class="relative w-full max-w-[240px] mt-auto mb-6 flex justify-center">
-     
 
 
-
-
-                </div>
             </div>
 
             <!-- Scroll Down Indicator -->
@@ -276,13 +522,20 @@
                 <!-- Invitation Message -->
                 <p class="font-ui text-amber-100/90 text-sm leading-relaxed mb-4 px-2">
                     اليوم أكملنا قصة الحب و بدأنا قصة العمر....<br>
-                    بكل الحب و الدعاء نتشرف بدعوتكم لحضور حفل زفافنا
-                </p>
+                 بكل الحب و الدعاء</p>
 
                 <!-- Couple Names -->
                 <div class="py-2 border-t border-b border-amber-200/20 my-3">
                     <h3 class="font-calligraphy metallic-text text-2xl tracking-wider">
-                        مُبَيَّن &amp; سَناء
+                        آل دقنيش    <span class="p-6"></span>    آل العش
+                        
+                        <p class="font-ui text-amber-100/90 text-sm leading-relaxed mb-4 px-2">
+                              تتشرف بدعوتكم لحضور حفل زفاف<br>
+                          </p>
+                             <h2 class="font-calligraphy metallic-text text-2xl tracking-wider">
+  مُبين إبراهيم دقنيش    <span class="p-4"></span> ثناء خالد العش
+                             </h2>
+                      
                     </h3>
                 </div>
 
@@ -295,7 +548,7 @@
 
                 <!-- Action Button inside card -->
                 <div class="mt-5">
-                    <a href="https://maps.google.com" target="_blank"
+                    <a href="https://maps.app.goo.gl/oAPbZxY99FQ6eCmk7" target="_blank"
                         class="inline-block bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-100 text-xs px-5 py-2 rounded-full transition-all">
                         <i class="fa-solid fa-location-dot ml-1 text-amber-300"></i> عرض الموقع على الخريطة
                     </a>
@@ -328,106 +581,193 @@
                         <span class="mt-2 block font-ui text-xs sm:text-sm text-amber-100/90">DAYS</span>
                     </div>
                 </div>
-         
+
             </div>
 
-            <!-- Calendar Date Card -->
 
-      
-<!-- Calendar -->
-<div class="w-full max-w-[325px] mx-auto mt-7 mb-0 rounded-t-[28px] rounded-b-[28px] border border-white/20 bg-[#a99a8b]/80 backdrop-blur-md text-center shadow-xl rounded-[10]">
+            <div class="w-full max-w-[450px] mx-auto my-6 px-5 py-5
+            rounded-[30px] border border-white/20
+            bg-[#8b7866]/60 backdrop-blur-md">
 
-    <!-- Calendar Header -->
-    <div class="grid grid-cols-3 items-center bg-[#d0d2c1]/90 px-3 py-4 text-[#f9f6ef]  rounded-t-[28px] " >
-        <span class="font-ui text-xs tracking-[0.15em]">MON</span>
-        <span class="font-ui text-base sm:text-lg font-bold tracking-widest">NOVEMBER</span>
-        <span class="font-ui text-xs tracking-[0.15em]">2026</span>
-    </div>
+                <div class="relative">
 
-    <!-- Calendar Date -->
-    <div class="flex flex-col items-center bg-[#b6a697]/75 px-3 pt-6 pb-5 rounded-b-[28px]">
+                    <!-- الخط الواصل -->
+                    <div class="absolute top-3 bottom-3 left-1/2
+                    -translate-x-1/2 w-px bg-white/20"></div>
 
-        <span class="block font-ui text-[160px] leading-[1.15] font-light text-[#e7e2d6] drop-shadow-sm">
-            2
-        </span>
+                    <!-- استقبال الضيوف -->
+                    <div class="relative grid grid-cols-[1fr_32px_1fr]
+                    items-center gap-3 min-h-[85px]">
+                        <span class="text-right text-[#e5e1d1] text-sm sm:text-base">
+                            7:00<span>PM</span>
+                        </span>
 
-        <div class="mt-2 h-px w-16 shrink-0 bg-[#847365]/60"></div>
+                        <span class="w-[18px] h-[18px] rounded-full
+                         bg-[#e5e1d1] justify-self-center
+                         shadow-[0_0_0_7px_rgba(229,225,209,0.15)]">
+                        </span>
 
-        <span class="mt-4 font-ui text-lg tracking-[0.18em] text-[#ead4b7]">
-            MONDAY
-        </span>
+                        <span class="text-right text-[#e5e1d1] text-sm sm:text-base">
+                            بداية العرس
+                        </span>
+                    </div>
 
-        <span class="mt-2 font-ui text-xs tracking-widest text-[#f4e7d6]/80">
-            SAVE THE DATE
-        </span>
+                    <!-- دخول العروسين -->
+                    <div class="relative grid grid-cols-[1fr_32px_1fr]
+                    items-center gap-3 min-h-[85px]">
+                        <span class="text-right text-[#e5e1d1] text-sm sm:text-base">
+                            8:30<span>PM</span>
+                        </span>
 
-    </div>
-</div>
+                        <span class="w-[18px] h-[18px] rounded-full
+                         bg-[#e5e1d1] justify-self-center
+                         shadow-[0_0_0_7px_rgba(229,225,209,0.15)]">
+                        </span>
+
+                        <span class="text-right text-[#e5e1d1] text-sm sm:text-base">
+                            دخول العروس
+                        </span>
+                    </div>
+
+                    <!-- العشاء -->
+                    <div class="relative grid grid-cols-[1fr_32px_1fr]
+                    items-center gap-3 min-h-[85px]">
+                        <span class="text-right text-[#e5e1d1] text-sm sm:text-base">
+                            9:30<span>PM</span>
+                        </span>
+
+                        <span class="w-[18px] h-[18px] rounded-full
+                         bg-[#e5e1d1] justify-self-center
+                         shadow-[0_0_0_7px_rgba(229,225,209,0.15)]">
+                        </span>
+
+                        <span class="text-right text-[#e5e1d1] text-sm sm:text-base">
+                            دخول العريس
+                        </span>
+                    </div>
+
+                    <!-- التصوير التذكاري -->
+                    <div class="relative grid grid-cols-[1fr_32px_1fr]
+                    items-center gap-3 min-h-[85px]">
+                        <span class="text-right text-[#e5e1d1] text-sm sm:text-base">
+                            11:00<span>PM</span>
+                        </span>
+
+                        <span class="w-[18px] h-[18px] rounded-full
+                         border-2 border-[#e5e1d1] bg-transparent
+                         justify-self-center
+                         shadow-[0_0_0_7px_rgba(229,225,209,0.15)]">
+                        </span>
+
+                        <span class="text-right text-[#e5e1d1] text-sm sm:text-base">
+                            نهاية العرس
+                        </span>
+                    </div>
+
+                </div>
+            </div>
 
 
-<!-- Invitation Notes -->
-<div dir="rtl" class="w-full mt-6 flex flex-col gap-4 box-border" mt-[200]
-     style="font-family:Arial,sans-serif;">
+            <!-- Calendar -->
+            <div
+                class="w-full max-w-[325px] mx-auto mt-7 mb-0 rounded-t-[28px] rounded-b-[28px] border border-white/20 bg-[#a99a8b]/80 backdrop-blur-md text-center shadow-xl rounded-[10]">
 
-    <div class="w-full min-h-[62px] px-4 py-3 flex items-center justify-between gap-3 bg-white/10 border border-white/25 rounded-2xl box-border text-[#e0d8cd]">
+                <!-- Calendar Header -->
+                <div class="grid grid-cols-3 items-center bg-[#d0d2c1]/90 px-3 py-4 text-[#f9f6ef]  rounded-t-[28px] ">
+                    <span class="font-ui text-xs tracking-[0.15em]">MON</span>
+                    <span class="font-ui text-base sm:text-lg font-bold tracking-widest">NOVEMBER</span>
+                    <span class="font-ui text-xs tracking-[0.15em]">2026</span>
+                </div>
 
-        <span class="flex-1 text-right text-base leading-7">
-            يرجى الحضور في الوقت المحدد
-        </span>
+                <!-- Calendar Date -->
+                <div class="flex flex-col items-center bg-[#b6a697]/75 px-3 pt-6 pb-5 rounded-b-[28px]">
 
-        <span class="w-[34px] h-[34px] shrink-0 flex items-center justify-center border border-white/25 rounded-full text-[#e0d8cd] text-[17px] italic shadow-[0_0_12px_rgba(255,255,255,0.08)]"
-              style="font-family:Georgia,serif;">
-            i
-        </span>
+                    <span class="block font-ui text-[160px] leading-[1.15] font-light text-[#e7e2d6] drop-shadow-sm">
+                        2
+                    </span>
 
-    </div>
+                    <div class="mt-2 h-px w-16 shrink-0 bg-[#847365]/60"></div>
 
-    <div class="w-full min-h-[62px] px-4 py-3 flex items-center justify-between gap-3 bg-white/10 border border-white/25 rounded-2xl box-border text-[#e0d8cd]">
+                    <span class="mt-4 font-ui text-lg tracking-[0.18em] text-[#ead4b7]">
+                        MONDAY
+                    </span>
 
-        <span class="flex-1 text-right text-base leading-7">
-            نوماً هنيئاً لأطفالكم
-        </span>
+                    <span class="mt-2 font-ui text-xs tracking-widest text-[#f4e7d6]/80">
+                        SAVE THE DATE
+                    </span>
 
-        <span class="w-[34px] h-[34px] shrink-0 flex items-center justify-center border border-white/25 rounded-full text-[#e0d8cd] text-[17px] italic shadow-[0_0_12px_rgba(255,255,255,0.08)]"
-              style="font-family:Georgia,serif;">
-            i
-        </span>
-
-    </div>
-</div>
+                </div>
+            </div>
 
 
-<!-- Invitation Text -->
-<div class="mt-6 mb-7 px-4 py-5 text-center backdrop-blur-md font-calligraphy text-2xl leading-[1.9]">
+            <!-- Invitation Notes -->
+            <div dir="rtl" class="w-full mt-6 flex flex-col gap-4 box-border" mt-[200]
+                style="font-family:Arial,sans-serif;">
 
-    بقلوب يملؤها الفرح والامتنان، يسعدنا أن نشارككم أجمل لحظات حياتنا، وأن نحتفل معكم ببداية رحلة جديدة جمع الله بيننا فيها بالمودة والرحمة.
+                <div
+                    class="w-full min-h-[62px] px-4 py-3 flex items-center justify-between gap-3 bg-white/10 border border-white/25 rounded-2xl box-border text-[#e0d8cd]">
 
-</div>
-```
+                    <span class="flex-1 text-right text-base leading-7">
+                        يرجى الحضور في الوقت المحدد
+                    </span>
 
-            
-<!-- Wedding Footer -->
-<div class="w-full flex flex-col items-center justify-center text-center py-8 px-4">
+                    <span
+                        class="w-[34px] h-[34px] shrink-0 flex items-center justify-center border border-white/25 rounded-full text-[#e0d8cd] text-[17px] italic shadow-[0_0_12px_rgba(255,255,255,0.08)]"
+                        style="font-family:Georgia,serif;">
+                        i
+                    </span>
 
-    <!-- Couple Names -->
-    <h2 class="font-calligraphy text-2xl sm:text-3xl text-[#ead4b7] drop-shadow-md">
-        مبين &amp; سَناء
-    </h2>
+                </div>
 
-    <!-- Small Decorative Dot -->
-    <span class="text-[#b6a697] text-sm">♥</span>
+                <div
+                    class="w-full min-h-[62px] px-4 py-3 flex items-center justify-between gap-3 bg-white/10 border border-white/25 rounded-2xl box-border text-[#e0d8cd]">
 
-    <!-- Wedding Date -->
-    <p class="font-ui mt-3 text-lg tracking-wide text-[#ead4b7]">
-        02.11.2026
-    </p>
+                    <span class="flex-1 text-right text-base leading-7">
+                        نوماً هنيئاً لأطفالكم
+                    </span>
 
-    <!-- Heart Icon -->
-    <div class="mt-3 text-[#d0d2c1]">
-        <i class="fa-solid fa-heart text-2xl"></i>
-    </div>
+                    <span
+                        class="w-[34px] h-[34px] shrink-0 flex items-center justify-center border border-white/25 rounded-full text-[#e0d8cd] text-[17px] italic shadow-[0_0_12px_rgba(255,255,255,0.08)]"
+                        style="font-family:Georgia,serif;">
+                        i
+                    </span>
 
-</div>
+                </div>
+            </div>
+
+
+            <!-- Invitation Text -->
+            <div class="mt-6 mb-7 px-4 py-5 text-center backdrop-blur-md font-calligraphy text-2xl leading-[1.9]">
+
+                بقلوب يملؤها الفرح والامتنان، يسعدنا أن نشارككم أجمل لحظات حياتنا، وأن نحتفل معكم ببداية رحلة جديدة جمع
+                الله بيننا فيها بالمودة والرحمة.
+
+            </div>
+            ```
+
+
+            <!-- Wedding Footer -->
+            <div class="w-full flex flex-col items-center justify-center text-center py-8 px-4">
+
+                <!-- Couple Names -->
+                <h2 class="font-calligraphy text-2xl sm:text-3xl text-[#ead4b7] drop-shadow-md">
+                    مُبين&amp; ثناء
+                </h2>
+
+                <!-- Small Decorative Dot -->
+                <span class="text-[#b6a697] text-sm">♥</span>
+
+                <!-- Wedding Date -->
+                <p class="font-ui mt-3 text-lg tracking-wide text-[#ead4b7]">
+                    02.11.2026
+                </p>
+
+                <!-- Heart Icon -->
+                <div class="mt-3 text-[#d0d2c1]">
+                    <i class="fa-solid fa-heart text-2xl"></i>
+                </div>
+
+            </div>
 
             <!-- Bottom spacing before dock -->
             <div class="h-8"></div>
@@ -437,37 +777,32 @@
 
 
 
-<audio
-    id="weddingAudio"
-    loop
-    preload="auto"
-    src="./img/الزفة السورية التي يبحث عنها الجميع - Karema AH.mp3"
-></audio>
+        <audio id="weddingAudio" loop preload="auto"
+            src="./img/الزفة السورية التي يبحث عنها الجميع - Karema AH.mp3"></audio>
         <!-- Bottom Navigation Dock -->
-       
+
     </div>
-<script>
-    async function playWeddingMusic() {
-        const audio = document.getElementById("weddingAudio");
-        const text = document.getElementById("musicBtnT");
+    <script>
+        async function playWeddingMusic() {
+            const audio = document.getElementById("weddingAudio");
+            const text = document.getElementById("musicBtnT");
 
-        try {
-            if (audio.paused) {
-                await audio.play();
-                text.textContent = "Pause Music";
-            } else {
-                audio.pause();
-                text.textContent = "Tap to Start Music";
+            try {
+                if (audio.paused) {
+                    await audio.play();
+                    text.textContent = "Pause Music";
+                } else {
+                    audio.pause();
+                    text.textContent = "Tap to Start Music";
+                }
+            } catch (error) {
+                
             }
-        } catch (error) {
-            console.error("Music error:", error);
-            alert("مش قادرين نشغل الأغنية. اتأكدي من مسار الملف.");
         }
-    }
 
-    document.getElementById("weddingAudio").addEventListener("ended", function () {
-        document.getElementById("musicBtnText").textContent = "Tap to Start Music";
-    });
+        document.getElementById("weddingAudio").addEventListener("ended", function () {
+            document.getElementById("musicBtnText").textContent = "Tap to Start Music";
+        });
         // Countdown to November 2, 2026 at 7:00 PM (local browser time)
         function updateWeddingCountdown() {
             const targetDate = new Date(2026, 10, 2, 19, 0, 0);
@@ -499,6 +834,12 @@
         updateWeddingCountdown();
         setInterval(updateWeddingCountdown, 1000);
 
+        function openInvitation() {
+            document.getElementById("introScreen").classList.add("opened");
+
+            playWeddingMusic();
+        }
+
         // Smooth Scroll Helper
         function scrollToSection(sectionId) {
             const el = document.getElementById(sectionId);
@@ -525,6 +866,7 @@
         if (secondSection) {
             observer.observe(secondSection);
         }
-</script>
+    </script>
 </body>
+
 </html>
